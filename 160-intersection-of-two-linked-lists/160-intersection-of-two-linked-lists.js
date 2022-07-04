@@ -12,13 +12,17 @@
  * @return {ListNode}
  */
 var getIntersectionNode = function(headA, headB) {
-    let firstPointer = headA;
-    let secondPointer = headB;
-
-    while(firstPointer != secondPointer) {
-        firstPointer = firstPointer ? firstPointer.next : headB;
-        secondPointer = secondPointer ? secondPointer.next : headA;
+    let vals = [];
+    
+    while (headA) {
+        vals.push(headA);
+        headA = headA.next;
     }
-    return firstPointer;
+
+    while (headB) {
+        if (vals.includes(headB)) return headB;
+        headB = headB.next;
+    }
+    return null;
     
 };
