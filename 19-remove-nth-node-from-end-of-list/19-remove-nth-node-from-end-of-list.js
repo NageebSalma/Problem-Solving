@@ -25,7 +25,7 @@ var removeNthFromEnd = function(head, n) {
         slowptr = slowptr.next;
         fastptr = fastptr.next;
     }
-    console.log(slowptr , fastptr)
+    // console.log(slowptr , fastptr)
     slowptr.next = slowptr.next.next;
     return head
 };
