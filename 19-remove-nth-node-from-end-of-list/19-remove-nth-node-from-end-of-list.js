@@ -18,7 +18,7 @@ var removeNthFromEnd = function(head, n) {
     for(let i = 0 ; i < n ; i++){
         fastptr = fastptr.next;
     }
-    console.log(fastptr)
+    // console.log(fastptr)
     if(!fastptr) return head.next;
     
     while(fastptr.next){
