@@ -2,6 +2,9 @@
  * @param {character[][]} grid
  * @return {number}
  */
+
+
+//time complexity : O(m*n)
 function changeLandIntoWater(grid , i , j){
    //base conditions: i or j are out of bound , grid[i][j] == 0
     if(i < 0 || j < 0 || i === grid.length || j === grid[0].length || grid[i][j] == 0) return;
