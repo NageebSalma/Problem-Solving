@@ -5,12 +5,12 @@
 
 function isClosedIsland(grid , i , j){
     //we have water or an already visited land
-    if(grid[i][j] === 1 || grid[i][j] === 'x') return true
+    if(grid[i][j] === 1) return true
     
     //now we know for sure we have a zero(land) at hand, just wanna check it's not on the borders of the matrix
-    if(i == 0 || j == 0 || i == grid.length-1 || j == grid[0].length-1) return false;
+    if(i == 0 || j == 0 || i == grid.length-1 || j == grid[0].length-1 ) return false;
     
-    grid[i][j] = 'x';
+    grid[i][j] = 1;
     let left = isClosedIsland(grid , i-1 , j)
     let right = isClosedIsland(grid , i+1 , j)
     let down = isClosedIsland(grid , i , j-1)
