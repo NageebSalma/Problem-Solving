@@ -4,8 +4,8 @@
  * @return {boolean}
  */
 function dfsTopSortHelper(n , v , topologicalNums , visited , adjList){
-    if(visited.length==adjList.length) return;
-    console.log(topologicalNums)
+    // if(visited.length==adjList.length) return;
+    // console.log(topologicalNums)
     visited[v] = true;
     let neighbors  = adjList[v]
     for(let neighbor of neighbors){
@@ -14,6 +14,7 @@ function dfsTopSortHelper(n , v , topologicalNums , visited , adjList){
         }
     }
     topologicalNums[v] = n;
+    // console.log(topologicalNums)
     return n-1;
 }
 
@@ -33,9 +34,12 @@ function isCyclic(adjList , visited , v){
 }
 
 var canFinish = function(numCourses, preqs) {
+    
     let adjList = {}
      let vertices = []
     let visited = {};
+     let topologicalNums = {};
+    
 
     for(let i = 0 ;  i < numCourses ; i++){
         adjList[i] = []
@@ -47,19 +51,18 @@ var canFinish = function(numCourses, preqs) {
         }
         
     }
-    
-    let topologicalNums = {};
-    let n = vertices.length-1;
-    
+        let n = vertices.length-1;
+
+   
     for(let v of vertices){
         if(!visited[v]){
             // 
             if(isCyclic(adjList , visited , v)) return false;
-            // else n = dfsTopSortHelper(n , v , topologicalNums, visited , adjList)
+            else n = dfsTopSortHelper(n , v , topologicalNums, visited , adjList)
         }
     }
     
-    console.log(topologicalNums)
+    // console.log(topologicalNums)
     return true;
 
 };
