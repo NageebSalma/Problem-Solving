@@ -62,7 +62,7 @@ var canFinish = function(numCourses, preqs) {
         }
     }
     
-    // console.log(topologicalNums)
+    console.log(topologicalNums)
     return true;
 
 };
