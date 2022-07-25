@@ -6,12 +6,33 @@
 
 
 var coinChange = function(coins, amount) {
-  const dp = Array(amount + 1).fill(Infinity); // This arr tells us how many coins we need for each amount.
-  dp[0] = 0; // To make 0, we need 0 coins.
-  for (let coin of coins) { // Check each coin
-    for (let i = coin; i <= amount; i++) { // Iterate through the entire amount from coin
-      dp[i] = Math.min(dp[i], dp[i - coin] + 1); // Update minimum number of needed coins.
+    if (amount < 1)
+        return 0;
+    else
+        return coinChangeSub(coins, amount, Array(amount).fill(0));
+}
+
+function coinChangeSub(coins, amountRemaining, solutions) {
+    if (amountRemaining < 0) return -1;
+    if (amountRemaining === 0) return 0;
+    
+    if (solutions[amountRemaining - 1] !== 0)
+        return solutions[amountRemaining - 1];
+
+    var optimalSolution = Infinity;
+    
+    // Determine the optimal coin
+    for (const coin of coins) {
+        var solutionUsingThisCoin = coinChangeSub(coins, amountRemaining - coin, solutions);
+        if (solutionUsingThisCoin >= 0 && solutionUsingThisCoin < optimalSolution) {
+            optimalSolution = solutionUsingThisCoin + 1;
+        }
     }
-  }
-  return dp[amount] === Infinity ? -1 : dp[amount]; // If the last element is Infinity, then we cannot make the amount.
+    
+    if (optimalSolution === Infinity)
+        solutions[amountRemaining - 1] = -1;
+    else
+        solutions[amountRemaining - 1] = optimalSolution;
+
+    return solutions[amountRemaining - 1];
 };
