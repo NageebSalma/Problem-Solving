@@ -53,28 +53,27 @@
 
 
 
-var lengthOfLongestSubstring = function(s) {
-    if(!s.length) return 0;
-    
-    let set = new Set();
-    let ans = 0;
-    let i = 0 ; 
-    let j = 0;
-    
-    while(j <= i && i < s.length) {
-        if(!set.has(s[i])){
-            set.add(s[i]);
-            ans = Math.max(ans , i-j+1);
-            i++;
-        }
-        else{
-            if(set.has(s[j])){
-                set.delete(s[j]);
-                j++;
-            }
-        }
+var lengthOfLongestSubstring = function(str) {
+ let distinctMap = {};
+  let window_start = 0 ;
+  let window_end = 0;
+  let max_len = Number.NEGATIVE_INFINITY;
+
+  for(window_end ; window_end < str.length ; window_end++){
+    if(!distinctMap[str[window_end]]) distinctMap[str[window_end]] = 0;
+    distinctMap[str[window_end]] += 1;
+    // console.log(distinctMap)
+    while(distinctMap[str[window_end]] > 1){
+      distinctMap[str[window_start]] -= 1;
+      // console.log(distinctMap)
+      if(distinctMap[str[window_start]] == 0) delete distinctMap[str[window_start]];
+      window_start++;
     }
-    return ans
+
+    max_len = Math.max(max_len , window_end-window_start+1);
+  }
+
+  return max_len == Number.NEGATIVE_INFINITY ? 0 : max_len;
 };
 
 
