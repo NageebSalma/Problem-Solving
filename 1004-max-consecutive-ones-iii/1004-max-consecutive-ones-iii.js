@@ -15,7 +15,6 @@ var longestOnes = function(str, k) {
 
     while(window_end - window_start + 1 - tracker[1] > k){
       tracker[str[window_start]]--;
-      if(tracker[str[window_start]] <= 0)tracker[str[window_start]] = 0
       window_start++;
     }
 
