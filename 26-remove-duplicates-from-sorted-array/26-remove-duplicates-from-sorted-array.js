@@ -11,12 +11,7 @@ var removeDuplicates = function(arr) {
       end =0;
 
   while(end < arr.length){
-   if(arr[end] < arr[start]){
-     let temp = arr[end];
-     arr[end] = arr[start];
-     arr[start] = temp;
-   }
-   else if(arr[end] > arr[start]){
+  if(arr[end] > arr[start]){
      start++;
      let temp = arr[start];
      arr[start] = arr[end];
