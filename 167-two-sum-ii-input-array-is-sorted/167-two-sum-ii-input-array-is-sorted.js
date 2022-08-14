@@ -3,6 +3,8 @@
  * @param {number} target
  * @return {number[]}
  */
+
+//two pointer method.
 var twoSum = function(arr, target_sum) {
   let start = 0;
   let end = arr.length-1;
