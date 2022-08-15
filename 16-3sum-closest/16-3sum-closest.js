@@ -4,7 +4,8 @@
  * @return {number}
  */
 var threeSumClosest = function(arr, targetSum) {
-  arr.sort((a, b) => a - b);
+  if(arr.length < 3) return 0;
+ arr.sort((a, b) => a - b);
   let smallest_difference = Infinity;
   for (let i = 0; i < arr.length - 2; i++) {
     let left = i + 1,
@@ -30,4 +31,4 @@ var threeSumClosest = function(arr, targetSum) {
     }
   }
   return targetSum - smallest_difference;
-}
+};
