@@ -7,14 +7,14 @@ var removeElement = function(nums, val) {
     let i = 0,j=0;
     
     while(i < nums.length){
-        if(nums[i] !== val && nums[i] !== ''){
+        if(nums[i] !== val){
             let temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;
             i++;
             j++;
         }
-        else{ nums[i] = '' ; i++; }
+        else{ i++; }
     }
     return j
 };
