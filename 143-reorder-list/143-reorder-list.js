@@ -10,41 +10,45 @@
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-    if(!head) return;
-    
-    let fast = head;
-    let slow = head;
-    
-    //to find the middle of list: 
-    //slow will point at the beginning of mid point at the end of this loop
-    while(fast && fast.next){
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-    
-    //reverse second part of list:
-    let prev = null ; 
-    let current = slow;
-    while(current){
-        let tracker = current.next;
-        current.next = prev;
-        prev = current;
-        current = tracker;
-    }
-    // console.log(prev)
-    
-    //now we will merge the two lists alternatively:
-    let h1 = head;
-    let h2 = prev;
-    while(h2.next){
-        let tracker1 = h1.next;
-        let tracker2 = h2.next;
-        h1.next = h2;
-        h1 = tracker1;
-        
-        h2.next = h1;
-        h2 = tracker2;
-    }
-    
-    
-};
+if(!head || !head.next) return;
+
+  let ptr2 = find_mid(head);
+  ptr2 = reverse_linkedList(ptr2);
+  let ptr1 = head;
+
+  //1 -> 2 -> 3  | 5 -> 4 -> null
+  while(ptr2.next !== null){
+    let keeper1 = ptr1.next;
+    ptr1.next = ptr2;
+    ptr1 = keeper1;
+
+    let keeper2 = ptr2.next;
+    ptr2.next = ptr1;
+    ptr2 = keeper2;
+  }
+  return head;
+}
+
+function find_mid(head){
+  let slow = head , fast = head;
+
+  while(fast !== null && fast.next !== null){
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+
+function reverse_linkedList(head){
+  let prev = null , current = head, keeper;
+
+  while(current){
+    keeper = current.next;
+    current.next = prev;
+    prev = current;
+    current = keeper;
+  }
+  
+  return prev;
+}
