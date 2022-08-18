@@ -9,17 +9,16 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-// 1 , 2 , 3 , 4 , 5 , null
-//         s
-//                f
+// 1 , 2 , 3 , 4 , 5 , 6 ,null
+//             s
+//                 f
 //l = 3
 var middleNode = function(head) {
   let slow = head, fast = head;
-  let length = 0;
 
   while(fast !== null && fast.next !== null){
+    fast = fast.next.next;
     slow = slow.next;
-    fast = fast.next.next; length+=2;
   }
 
   return slow;
