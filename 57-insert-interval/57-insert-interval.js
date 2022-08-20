@@ -4,21 +4,25 @@
  * @return {number[][]}
  */
 var insert = function(intervals, new_interval) {
-  let merged = [] , i = 0;
-
-  while(i < intervals.length && intervals[i][1] < new_interval[0]){
-    merged.push(intervals[i]);
-    i++;
-  };
+    let result = [], i = 0;
     
-  while (i < intervals.length && intervals[i][0] <= new_interval[1]) {
-    new_interval[0] = Math.min(intervals[i][0], new_interval[0]);
-    new_interval[1] = Math.max(intervals[i][1], new_interval[1]);
-    i += 1;
-  }
-  merged.push(new_interval);
-
-  while(i < intervals.length){merged.push(intervals[i]) ; i++;}
-  
-  return merged;
+    //all non overlapping intervals before the new interval
+    while(i  < intervals.length && intervals[i][1] < new_interval[0]){
+        result.push(intervals[i]);
+        i++;
+    }
+    
+    //let's deal with overlapping intervals!
+    while(i < intervals.length && intervals[i][0] <= new_interval[1]){
+        new_interval = [Math.min(intervals[i][0],new_interval[0]),Math.max(new_interval[1],intervals[i][1])];
+        i++;
+    }
+    result.push(new_interval);
+    
+    while(i < intervals.length){
+        result.push(intervals[i]); i++;
+    }
+    
+    return result;
 }
+
