@@ -12,7 +12,7 @@ var insert = function(intervals, new_interval) {
         i++;
     }
     
-    //let's deal with overlapping intervals!
+    //let's deal with overlapping intervals, and make new interval swallow them all by updating it.
     while(i < intervals.length && intervals[i][0] <= new_interval[1]){
         new_interval = [Math.min(intervals[i][0],new_interval[0]),Math.max(new_interval[1],intervals[i][1])];
         i++;
