@@ -3,25 +3,24 @@
  * @return {boolean}
  */
 
-// [2,3,1,1,4]
-//  - .
-// //consider dashed index to be currentAbility
-// return currentAbility === 0 ? true : false
-//     //i move down the array and see if each step gets me to the step after it
-
 
 var canJump = function(nums) {
-    if(nums.length==1) return true
-    let currentAbility= nums.length-2
-    let step = nums.length-1
-    for(let i = nums.length-2 ; i >= 0 ; i--){
-        currentAbility = i
-        
-        if(nums[currentAbility] >= step - currentAbility){
-            step = currentAbility
-        }
-       
+    if(nums.length <= 1) return true;
+    
+    let end_goal = nums.length-1;
+    let positionToJumpFrom = nums.length-2;
+    
+    for(positionToJumpFrom ; positionToJumpFrom >= 0 ;  positionToJumpFrom--){
+        if(positionToJumpFrom + nums[positionToJumpFrom] >= end_goal) end_goal = positionToJumpFrom;
     }
-    return nums[currentAbility] >= step-currentAbility
+    
+    // console.log(positionToJumpFrom , end_goal)
+    return end_goal == 0;
 };
 
+
+//[2 , 3 , 1 ,1 , 4]
+//            EG
+
+//positionToJumpFrom + nums[positionToJumpFrom] >= EG then I update EG , else, do nothing
+//EG = nums.length-1; => 4
