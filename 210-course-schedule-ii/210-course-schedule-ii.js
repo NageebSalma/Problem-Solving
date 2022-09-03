@@ -4,38 +4,40 @@
  * @return {boolean}
  */
 
-var findOrder = function(numCourses, preqs) {
-    if(numCourses == 1) return [0];
-    
-    let adjList = {}
-    let crossed = {}; //this is when the course is done with all its children, and added to output.
-    let seenBefore = {};
-    let output = [];
-    
-    for (let i = 0; i < numCourses; i++) {
-        adjList[i] = [];
-    }
-    for (const [crs, pre] of preqs) {
-        adjList[crs].push(pre);
-    }
-    
-    let canBeCompleted = (course) =>{
-        if(crossed[course]) return true;
-        if(seenBefore[course]) return false;
-        
-        seenBefore[course] = true;
-        for(let preReq of adjList[course]){
-            if(!canBeCompleted(preReq)) return false;
-        }
-        delete seenBefore[course];
-        output.push(course);    
-        crossed[course] = true;
+var findOrder = function(tasks, prerequisites) {
 
-        return true;
-    }
-    
-    for(let i = 0 ; i < numCourses ; i++){
-        if(!canBeCompleted(i)) return []
-    }
-    return output;
+  let graph = {};
+  let in_degree = {};
+
+  for(let task = 0 ; task < tasks ; task++){
+    graph[task] = [];
+    in_degree[task] = 0;
+  };
+
+  for(let preq of prerequisites){
+    let parent = preq[1], child = preq[0];
+    graph[parent].push(child);
+    in_degree[child]++;
+  };
+
+  let sorted = [], sources = [];
+  for(let course in in_degree){
+    if(in_degree[course] == 0) sources.push(course); 
+  }
+  if(!sources.length) return [];
+
+  while(sources.length){
+    let course = sources.shift();
+    sorted.push(course);
+    let dependentCourses = graph[course];
+
+    for(let dependentCourse of dependentCourses){
+      in_degree[dependentCourse]--;
+
+      if(in_degree[dependentCourse] == 0) sources.push(dependentCourse);
+    };
+  }
+
+  if(sorted.length !== tasks) return [];
+  return sorted;
 };
