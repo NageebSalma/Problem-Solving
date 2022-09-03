@@ -3,66 +3,41 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-function dfsTopSortHelper(n , v , topologicalNums , visited , adjList){
-    // if(visited.length==adjList.length) return;
-    // console.log(topologicalNums)
-    visited[v] = true;
-    let neighbors  = adjList[v]
-    for(let neighbor of neighbors){
-        if(!visited[neighbor]){
-            n = dfsTopSortHelper(neighbor , v , topologicalNums , visited , adjList)
-        }
-    }
-    topologicalNums[v] = n;
-    // console.log(topologicalNums)
-    return n-1;
-}
+//general trend is O(V + E)
+var canFinish = function(tasks, prerequisites) {
 
-function isCyclic(adjList , visited , v){
-    // console.log(visited)
-    if(visited[v] > 1) return true;
-    visited[v] = 2;                                                                                                                           
-    for(let neighbor of adjList[v]){
-          if(visited[neighbor] != 1){
-              // ++visited[neighbor];
-              if(isCyclic(adjList,visited,neighbor)) return true
-          } 
-    }
-    visited[v] = 1
-  return false;
-    
-}
+  let graph = {};
+  let in_degree = {};
 
-var canFinish = function(numCourses, preqs) {
-    
-    let adjList = {}
-     let vertices = []
-    let visited = {};
-     let topologicalNums = {};
-    
+  for(let task = 0 ; task < tasks ; task++){
+    graph[task] = [];
+    in_degree[task] = 0;
+  };
 
-    for(let i = 0 ;  i < numCourses ; i++){
-        adjList[i] = []
-        vertices.push(i)
-        visited[i] = 0;
-        for(let p of preqs){
-            if (p[0] === i) adjList[i].push(p[1])
-            
-        }
-        
-    }
-        let n = vertices.length-1;
+  for(let preq of prerequisites){
+    let parent = preq[0], child = preq[1];
+    graph[parent].push(child);
+    in_degree[child]++;
+  };
 
-   
-    for(let v of vertices){
-        if(!visited[v]){
-            // 
-            if(isCyclic(adjList , visited , v)) return false;
-            else n = dfsTopSortHelper(n , v , topologicalNums, visited , adjList)
-        }
-    }
-    
-    console.log(topologicalNums)
-    return true;
+  let sorted = [], sources = [];
+  for(let course in in_degree){
+    if(in_degree[course] == 0) sources.push(course); 
+  }
+  if(!sources.length) return false;
 
+  while(sources.length){
+    let course = sources.shift();
+    sorted.push(course);
+    let dependentCourses = graph[course];
+
+    for(let dependentCourse of dependentCourses){
+      in_degree[dependentCourse]--;
+
+      if(in_degree[dependentCourse] == 0) sources.push(dependentCourse);
+    };
+  }
+
+  if(sorted.length !== tasks) return false;
+  return true;
 };
