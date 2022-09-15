@@ -26,9 +26,6 @@ function path_sum_helper(root, targetSum , currentPath , output){
     
     if(root.val == targetSum && !root.left && !root.right) output.push(currentPath)
     
-    else{
-        path_sum_helper(root.left , targetSum - root.val , currentPath.slice(0) , output);
-        path_sum_helper(root.right, targetSum - root.val , currentPath.slice(0) , output);
-    }
-    
+    let left = path_sum_helper(root.left , targetSum - root.val , currentPath.slice(0) , output);
+    let right= path_sum_helper(root.right, targetSum - root.val , currentPath.slice(0) , output);
 }
