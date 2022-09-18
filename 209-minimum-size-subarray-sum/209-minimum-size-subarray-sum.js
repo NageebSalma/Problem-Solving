@@ -12,10 +12,10 @@ var minSubArrayLen = function(s, arr) {
     sum += arr[window_end];
 
     while(sum >= s){
-      min_len = Math.min(min_len , (window_end - window_beginning));
+      min_len = Math.min(min_len , (window_end - window_beginning)+1);
       sum -= arr[window_beginning];
       window_beginning++
     }
   }
-  return min_len+1 == Number.POSITIVE_INFINITY ? 0 : min_len+1;
+  return min_len == Number.POSITIVE_INFINITY ? 0 : min_len;
 };
