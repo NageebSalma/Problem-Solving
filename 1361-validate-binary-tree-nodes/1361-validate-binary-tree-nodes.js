@@ -37,7 +37,7 @@ var validateBinaryTreeNodes = function(n, leftChild, rightChild) {
     for(const node in in_degree){
         if(in_degree[node] == 0) zero_in_degrees.push(node);
     };
-    if(zero_in_degrees.length == 0) return false; // if i have no root node to kickstart my dfs.
+    if(zero_in_degrees.length !== 1) return false; // if i have no root node to kickstart my dfs || I have more than one.
     
     
     let visited = new Set();
@@ -57,18 +57,3 @@ var validateBinaryTreeNodes = function(n, leftChild, rightChild) {
     
     return true;    
 };
-// 2
-// [1,0]
-// [-1,-1]
-
-// 2
-// [1,0]
-// [-1,-1]
-
-// 4
-// [1,0,3,-1]
-// [-1,-1,-1,-1]
-
-// 4
-// [3,-1,1,-1]
-// [-1,-1,0,-1]
