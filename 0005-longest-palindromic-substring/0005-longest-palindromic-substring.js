@@ -10,6 +10,7 @@ var longestPalindrome = function(s) {
     
     for(let i = 0 ; i < s.length ; i++){
         
+        //make up an odd length palindrome
         let l= i, r=i;
         while(l >= 0 && r < s.length && s[l] == s[r]){
             if(r-l+1 > max_length){
@@ -20,6 +21,7 @@ var longestPalindrome = function(s) {
             l--; r++;
         };
         
+        //make up an even length palindrome
         l= i, r=i+1;
         while(l >= 0 && r < s.length && s[l] == s[r]){
             if(r-l+1 > max_length){
