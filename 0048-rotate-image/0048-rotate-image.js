@@ -3,10 +3,8 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var rotate = function(matrix) {
-    
     flip_around_diagonal(matrix);
-    flip_around_y(matrix);
-    
+    flip_around_y(matrix);    
     return matrix;
 };
 
